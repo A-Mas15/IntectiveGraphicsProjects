@@ -11,13 +11,13 @@ function composite( bgImg, fgImg, fgOpac, fgPos )
     let fgWidth = fgImg.width; 		// Foregroung image width
     let fgHeight = fgImg.height; 		// Foregroung image height	
     
-    for(let y = 0; y < fgHeight; y++){
-    	for(let x = 0; x < fgWidth; x++){
-	    	let bgX = x + fgPos.x;
-	    	let bgY = y + fgPos.y;
+    for(let fgY = 0; fgY < fgHeight; fgY++){
+    	for(let fgX = 0; fgX < fgWidth; fgX++){
+	    	let bgX = fgX + fgPos.x;
+	    	let bgY = fgY + fgPos.y;
 	    	if(bgX >= 0 && bgX < bgWidth && bgY >= 0 && bgY < bgHeight){
 	    		let bgIdx = (bgY * bgWidth + bgX)*4;
-	    		let fgIdx = (y * fgWidth + x)*4; 
+	    		let fgIdx = (fgY * fgWidth + fgX)*4; 
 	    		
 	    		// Define the channels:
 	    		let cFgRed =  fgData[fgIdx];			// Red channel forground
