@@ -3,23 +3,48 @@
 // The given rotation value is in degrees.
 function GetTransform( positionX, positionY, rotation, scale )
 {
-	let M = new Array(9)
-	// Convert from degrees to radiants
-	let theta = rotation * Math.PI/180;
-	// Determines cosine and sine of theta
-	let cos_theta = Math.cos(theta);
-	let sin_theta = Math.sin(theta);
-	// M = T*R*S (Scale -> Rotation -> Transation)
-	// The matrix is constructed for each element
-	M[0] = scale * cos_theta;
-	M[1] = scale * sin_theta;
-	M[2] = 0;
-	M[3] = scale * (-sin_theta);
-	M[4] = scale * cos_theta;
-	M[5] = 0;
-	M[6] = positionX;
-	M[7] = positionY;
-	M[8] = 1;
+	// Scale matrix
+	let S = new Array(9);
+	S[0] = scale;
+	S[1] = 0;
+	S[2] = 0;
+	S[3] = 0;
+	S[4] = scale;
+	S[5] = 0;
+	S[6] = 0;
+	S[7] = 0;
+	S[8] = 1;
+	
+	let theta = rotation* Math.PI/180; // Need to convert to radiants
+	let sinTheta = Math.sin(theta);
+	let cosTheta = Math.cos(theta);
+	
+	// Rotation matrix
+	let R = new Array(9);
+	R[0] = cosTheta;
+	R[1] = sinTheta;
+	R[2] = 0;
+	R[3] = - sinTheta;
+	R[4] = cosTheta;
+	R[5] = 0;
+	R[6] = 0;
+	R[7] = 0;
+	R[8] = 1;
+
+	// Translation matrix
+	let T = new Array(9)
+	T[0] = 1;
+	T[1] = 0;
+	T[2] = 0;
+	T[3] = 0;
+	T[4] = 1;
+	T[5] = 0;
+	T[6] = positionX;
+	T[7] = positionY;
+	T[8] = 1;
+
+	// M = T*R*S 
+	let M = ApplyTransform(ApplyTransform(S,R), T);
 	return M;
 }
 
