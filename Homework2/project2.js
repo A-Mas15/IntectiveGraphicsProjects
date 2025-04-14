@@ -15,7 +15,7 @@ function GetTransform( positionX, positionY, rotation, scale )
 	S[7] = 0;
 	S[8] = 1;
 	
-	let theta = rotation* Math.PI/180; // Need to convert to radiants
+	let theta = rotation* Math.PI/180; // Need to convert to radians
 	let sinTheta = Math.sin(theta);
 	let cosTheta = Math.cos(theta);
 	
